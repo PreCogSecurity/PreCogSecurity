@@ -1,0 +1,457 @@
+ /* CSS Document */
+
+body {
+	background-color:#3D3D3D;
+	background-image:url(images/tile_bg.gif);
+	background-position:center;
+	background-repeat:repeat-y;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	text-align:center;
+	margin:0px 0px 0px 0px;
+}
+
+
+#mainBG {
+	width:670px;
+	background-image:url(images/mainBG.jpg);
+	background-repeat:no-repeat;
+	background-color:#E6E5C6;
+	margin:0px;
+	padding-left:30px;
+	padding-top:30px;
+	padding-right:0px;
+	float:left;
+}
+
+
+#contentright {
+	width:175px;
+	padding-left:20px;
+	margin-right:auto;
+	margin-left:auto;
+	margin-top:20px;
+	float:right;
+}
+
+
+#mainHolder {
+	float:left;
+	width:448px;
+}
+
+#container {
+	width:700px;
+	margin-right:auto;
+	margin-left:auto;
+	margin-top:0px;
+	padding:0px;
+	text-align:left;
+}
+
+h1.homepage{
+	background-image:url(images/headerBG.gif);
+	background-repeat:no-repeat;
+	padding-left:15px;
+	padding-top:2px;
+	padding-bottom:0px;
+	font-weight:bold;
+	color:#FFF;
+	font-size:12px;
+	height:17px;
+	background-color:#1D0000;
+	
+}
+#banner {
+	width:700px;
+	height:86px;
+	margin:0px; 
+	padding:0px; 	
+	background-image:url(images/banner.jpg);
+	background-repeat:repeat-y;
+
+}
+
+#banner h1 {
+	padding:0px;
+	margin:0px;
+	visibility:hidden;
+}
+
+/*==============================
+		HOME PAGE ARTICLE LISTINGS
+===============================*/
+
+#articleListings {
+	border-right: 1px dashed #400A06;
+	width:438px;
+	padding-right:20px;
+	float:left;
+	font-family: Arial, Helvetica, sans-serif;
+	
+	
+}
+
+#articleListings p 	{
+	padding-left:20px;
+	padding-top:0px;
+	color: #180504;
+	font-size:0.8em;
+}
+
+#articleListings .authorDate {
+	font-size:10px;
+}
+
+#articleListings .title {
+	font-size:12px;
+	font-weight:bold;
+}
+
+#articleListings .articleContainer {
+	padding-left:20px;
+	padding-top:5px;
+	padding-bottom:5px;
+	border-bottom:1px solid #B7B293;
+	color: #282828;
+}
+
+#articleListings a {
+	/*display:block;*/
+	text-decoration:none;
+	color:#282828;
+	
+}
+
+#articleListings a:hover {
+	text-decoration:underline;
+	color:#5F0000;
+}
+
+
+
+/*====================================
+		Announcements side bar
+======================================*/
+#announcements {
+	width:143px;
+	padding-bottom:30px;
+
+}
+
+#announcements h1 {
+	margin:0px;	
+	background-image:url(images/headerAnnouncements.gif);
+	background-repeat:no-repeat;
+	background-color:#E6E5C6;
+	height:16px;
+	font-size:xx-small;
+}
+
+#announcements h1.related {
+	margin:0px;	
+	background-image:url(images/headerAlso.gif);
+	background-repeat:no-repeat;
+	background-color:#E6E5C6;
+	font-size:xx-small;
+	height:18px;
+}
+
+#announcements h1 span {
+	visibility:hidden;
+}
+
+#announcements .listing {
+	padding-left:5px;
+	padding-top:5px;
+	padding-bottom:5px;
+	border-bottom:1px solid #B7B293;
+	color: #5F0000;
+}
+
+#announcements .date {
+	font-size:0.6em;
+	font-weight:bold;
+}
+
+#announcements .altdate {
+	font-size:0.6em;
+}	
+
+#announcements .title {
+	font-size:0.7em;
+}
+
+#announcements .alttitle {
+	font-size:0.7em;
+	font-weight:bold;
+}
+
+#announcements a {
+	text-decoration:none;
+	color:#5F0000;
+}
+
+#announcements a:hover {
+	text-decoration:underline;
+}
+
+/*====================================
+		For the main nav
+======================================*/
+#nav {
+	width:700px;
+	height:24px;
+	margin:0px; 
+	padding:0px; 	
+}
+
+#nav * {
+
+	margin:0px; 
+	padding:0px; 
+	text-decoration:none; 
+	list-style:none;
+}
+
+#nav li {
+	display: inline;
+	list-style:none;
+	margin:0px;
+}
+#nav #btn1 {
+	width:179px;
+	height:24px;
+	float:left;
+	background-image:url(images/indexBtn.gif);
+	background-repeat:no-repeat;
+	text-decoration:none;
+}
+
+#nav #btn2 {
+	width:179px;
+	height:24px;
+	background-image:url(images/btnSubmissions.gif);
+	background-repeat:no-repeat;
+	text-decoration:none;
+	float:left;
+}
+
+#nav #btn3 {
+	width:179px;
+	height:24px;
+	background-image:url(images/btnEditorial.gif);
+	text-decoration:none;
+	float:left;
+
+}
+#nav #btn4 {
+	width:163px;
+	height:24px;
+	background-image:url(images/btnPermissions.gif);
+	background-repeat:no-repeat;
+	text-decoration:none;
+	float:left;
+}
+
+#nav a{
+	font-size:10px;
+}
+
+
+#nav span {
+	visibility:hidden;
+	min-height:24px
+}
+
+/*====================================
+		FORM ELEMENTS
+======================================*/
+
+.ddlist {
+	border:1px solid #4D1E1B;
+	/*width: 120px;*/
+	background-color:EBE9BF;
+	font-size:10px;
+	color:#4D1E1B;
+	/*margin-left:10px;*/
+	margin-bottom: 3px;
+}
+
+.searchBox {
+	border:1px solid #4D1E1B;
+	width: 120px;
+	background-color:EBE9BF;
+	font-size:10px;
+	color:#4D1E1B;
+	margin-left:10px;
+	margin-bottom: 3px;
+}
+
+.subscribeBtn {
+	margin-right:12px;
+}
+
+
+/*====================================
+		MAILING LIST
+======================================*/
+
+#mailing {
+	width:143px;
+	height: 64px;
+	padding:0px;
+	border:1px solid #5F0000;
+	background-color: #EFEFDE;
+	float:left;
+}
+
+#mailing h1 {
+	margin:0px;
+	padding-bottom: 6px;
+	background-image:url(images/headerMailinglist.gif);
+	background-repeat:no-repeat;
+	background-color:#EFEFDE;
+	font-size:xx-small;
+}
+
+#mailing span {
+	visibility:hidden
+}
+
+/*====================================
+		CTHEORY SITES
+======================================*/
+
+#sites {
+	float:left;
+	width:143px;
+	padding:0px;
+	margin:0px;
+	margin-top:30px;
+}
+
+#sites h1 {
+	margin:0px;
+	padding:0px;
+	height:16px;
+	background-image:url(images/headerSites.gif);
+	background-repeat:no-repeat;
+	background-color:#EFEFDE;
+	font-size:7pt;
+}
+#sites h1 span {
+	visibility:hidden
+}
+
+#sites ul {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+/*#sites* {
+
+	margin:0px; 
+	padding:0px; 
+	text-decoration:none; 
+	list-style:none;
+}*/
+
+
+#sites a {
+	display: block;
+	background-image:url(images/btnSitesBG.gif);
+	background-repeat:no-repeat;
+	border-bottom: 1px solid #5F0000;
+	border-top: 1px solid #F18E0D;
+	width:128px;
+	height:13px;
+	text-decoration:none;
+	padding-left:15px;
+	padding-top:2px;
+	padding-bottom:0px;
+	font-size:10px;
+	color:#FFFFFF;
+}
+
+#sites a:hover {
+	text-decoration:underline;
+
+}
+
+/*==================================
+		ARTICLE DETAILS 
+===================================*/
+
+#articleDetails {
+	width:400px;
+	float:inherit;
+	padding:10px;
+	margin-bottom:30px;
+	margin-right:53px;
+	font-family: Arial, Helvetica, sans-serif;
+	background-color:#DEDAB5;
+	border:1px solid #5F0000;
+	font-size:0.7em;
+	line-height:1.1em;
+	color:#4C4030;
+	
+}
+
+
+
+
+/*==================================
+		ARTICLE FORMATTING 
+===================================*/
+
+#article {
+	width:428px;
+	float:inherit;
+	margin-top:2px;
+	padding-right:20px;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #180504;
+	font-size:0.8em;
+	border-right:1px dashed #5F0000;
+	line-height:1.5em;
+}
+
+#article a {
+	color:#5F0000;
+}
+
+#article h1 {
+	
+	color:#180504;
+	font-size:1em;
+}
+
+#article h2 {
+	 line-height:25px;
+}
+/*==================================
+		BREADCRUMBS
+===================================*/
+
+.crumbs {
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:10px;
+	color:#5F0000;
+	font-weight:bold;
+}
+
+ .crumbs a {
+	color:#5F0000;
+	text-decoration:none;
+}
+
+.crumbs a:hover {
+	color:#5F0000;
+	text-decoration:underline;
+}
+
+#articleHeader {
+	width:425px;
+	float:left;
+}
+
