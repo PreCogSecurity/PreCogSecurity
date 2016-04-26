@@ -7,3 +7,4 @@ note:	the hts-log.txt file, and hts-cache folder, may contain sensitive informat
 	do not share these files/folders if you want these information to remain private
 
 13:32:13	Warning: 	Note: due to www.ctheory.net remote robots.txt rules, links beginning with these path will be forbidden: /ctheory_wp/wp-admin/ (see in the options to disable this)
+16:36:01	Warning: 	file not stored in cache due to bogus state (broken size, expected 74745 got 43218): www.ctheory.net/printer.aspx?id=726
