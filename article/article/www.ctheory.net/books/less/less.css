@@ -1,0 +1,682 @@
+/*	Based on Less Framework 3 by Joni Korpi http://lessframework.com	
+	Modified by Aya Walraven */
+
+
+/*	Resets
+	------	*/
+
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, 
+p, blockquote, pre, a, abbr, address, cite, code, del, dfn, em, 
+img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, 
+dl, dt, dd, ol, ul, li, fieldset, form, label, legend, 
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figure, figcaption, hgroup, 
+menu, footer, header, nav, section, summary, time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+article, aside, canvas, figure, figure img, figcaption, hgroup, body,
+footer, header, nav, section, audio, video {
+	display: block;
+}
+
+li,ul{padding:0; margin:0; list-style-type:none;}
+
+a img {border: 0;}
+a {color:white;}
+
+figure {position: relative;}
+figure img {width: 100%;}
+
+
+/*	Typography presets
+	------------------	*/
+	
+
+/* Museo font by Jos Buivenga (exljbris) -> www.exljbris.nl */
+
+@font-face {
+    font-family: 'Museo Slab 500';
+    src: url('Museo_Slab_500.html') format('eot'),          url('Museo_Slab_500.html') format('woff'),
+         url('Museo_Slab_500.html') format('opentype'),     url('http://ctheory.net/books/less/Museo_Slab_500#webfont9hr7Olye') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Museo 300 Regular';
+    src: url('Museo300-Regular.html') format('eot'),        url('Museo300-Regular.html') format('woff'),
+         url('Museo300-Regular.html') format('opentype'),   url('http://ctheory.net/books/less/Museo300-Regular#webfont9hr7Olye') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Museo 700 Regular';
+    src: url('Museo700-Regular.html') format('eot'),       url('Museo700-Regular.html') format('woff'),
+         url('Museo700-Regular.html') format('opentype'),  url('http://ctheory.net/books/less/Museo700-Regular#webfont9hr7Olye') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+.normal, body {
+	font: 16px/24px Helvetica, Arial, sans-serif;
+}
+
+
+b{font-weight:normal;font-family:'Museo 700 Regular'}
+
+/*  DEFAULTS ACROSS ALL LAYOUTS     */
+
+select{font-size:100%;}
+
+html{
+	margin:0;
+	height:100%;
+	color:white;
+}
+
+body {
+	font-smooth:always;-webkit-font-smoothing: antialiased;
+	min-height:100%;	margin:0;
+	text-shadow: 0px 1px 2px rgba(0,0,0,.7) ;
+	background: #544941; /*old stinky browsers*/
+	background: -webkit-gradient(linear, 0 top, 0 bottom, from(#252525), to(#544941)) fixed; /* webkit */
+	background-image: -moz-linear-gradient(top,  #252525,  #544941); /* firefox hax*/
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#252525', endColorstr='#544941'); /*ie filter*/
+	background-image: -o-linear-gradient(#252525, #544941);
+	background-repeat:no-repeat;
+}
+
+header{
+	width:100%;height:99px;background:rgba(0,0,0,0.3);
+	margin-bottom:10px;
+	color:white;
+}
+
+footer{text-align:center;clear:both;width:308px;margin:1em auto;color:white;font-family:'Museo 300 Regular';font-size:70%}
+footer a, footer a:visited, footer a:active{color:white;}
+img.logo{margin-top:18px;margin-left:10px;margin-right:50px;}
+
+section{}
+
+
+
+/*	Default 8-column layout: Styling is done here, only dimensions
+	should change on the other n-column sections.
+	60 px columns, 24 px gutters, 60 px margins, 768 px total
+	---------------------------------------------------------
+	1     2      3      4      5      6      7      8     
+	60px  144px  228px  312px  396px  480px  564px  648px	*/
+
+body {
+
+	width: 648px;
+	margin:0 auto;
+	padding: 0px 60px 0; /*84*/
+	
+	-webkit-tap-highlight-color: rgb(255,255,0);
+}
+
+/* ::selection 	 	{background: rgb(35,178,175);}
+::-moz-selection 	{background: rgb(35,178,175);}
+img::selection 		{background: transparent;}
+img::-moz-selection {background: transparent;} */
+
+/* front panels all wrapped in this frontnav section */
+section.frontnav{display:block;color:white;font-family:'Museo 300 Regular',Tahoma,Arial,sans-serif;margin-top:10px;float:left;
+}
+
+/* front-whatever are the four panels on the frontpage. */
+
+.frontBooks{	font-size:85%; height:170px;	width:282px;	margin-right:24px;	margin-bottom:24px;	padding:15px;
+				/* DIMENSIONS ABOVE, STYLING BELOW */
+				-webkit-box-shadow:0 0 15px rgba(0,0,0,0.6);	-moz-box-shadow:0 0 15px rgba(0,0,0,0.6);	box-shadow:0 0 15px rgba(0,0,0,0.6);
+        	    display:block;	float:left;		
+           	    -webkit-border-radius: 3px;			-moz-border-radius: 3px;		-o-border-radius: 3px;			border-radius: 3px;
+				background-color:rgba(164,56,21,0.8);
+				background: -webkit-gradient(linear, left top, left bottom, from(	rgba(164,56,21,0.7)), to(	rgba(164,56,21,0.35)));
+				background: -moz-linear-gradient(top,  								rgba(164,56,21,0.7),  		rgba(164,56,21,0.35));}
+            
+            
+.frontLibrary{	font-size:85%;height:170px;	width:282px;	margin-right:0px;	margin-bottom:24px;	padding:15px;
+				/* DIMENSIONS ABOVE, STYLING BELOW */
+				-webkit-box-shadow:0 0 15px rgba(0,0,0,0.6);	-moz-box-shadow:0 0 15px rgba(0,0,0,0.6);   box-shadow:0 0 15px rgba(0,0,0,0.6);
+        	    display:block;	float:left;		clear:right;
+        	    -webkit-border-radius: 3px;			-moz-border-radius: 3px;		-o-border-radius: 3px;			border-radius: 3px;
+				background-color:rgba(36,152,150,0.8);
+				background: -webkit-gradient(linear, left top, left bottom, from(	rgba(36,152,150,0.7)), to(	rgba(36,152,150,0.3)));
+				background: -moz-linear-gradient(top,  								rgba(36,152,150,0.7),  		rgba(36,152,150,0.3));}
+            
+            
+.frontMultimedia{font-size:85%;height:170px;	width:282px;	margin-right:24px;	margin-bottom:24px;	padding:15px; 
+				/* DIMENSIONS ABOVE, STYLING BELOW */
+				-webkit-box-shadow:0 0 15px rgba(0,0,0,0.6);	-moz-box-shadow:0 0 15px rgba(0,0,0,0.6);	box-shadow:0 0 15px rgba(0,0,0,0.6);
+            	display:block;	float:left;	clear:right;
+            	-webkit-border-radius: 3px;			-moz-border-radius: 3px; 		-o-border-radius: 3px;			border-radius: 3px;
+				background-color:rgba(36,152,150,0.8);
+				background: -webkit-gradient(linear, left top, left bottom, from(	rgba(36,152,150,0.7)), to(	rgba(36,152,150,0.3)));
+				background: -moz-linear-gradient(top,  								rgba(36,152,150,0.7),  		rgba(36,152,150,0.3));}
+   
+   
+.frontAbout{	font-size:85%;height:170px;	width:282px;	margin-right:0px;	margin-bottom:24px;	padding:15px;
+				/* DIMENSIONS ABOVE, STYLING BELOW */
+				-webkit-box-shadow:0 0 15px rgba(0,0,0,0.6);	-moz-box-shadow:0 0 15px rgba(0,0,0,0.6);	box-shadow:0 0 15px rgba(0,0,0,0.6);
+            	display:block;	float:left;	clear:right;
+            	-webkit-border-radius: 3px;			-moz-border-radius: 3px;		-o-border-radius: 3px;			border-radius: 3px;
+				background-color:rgba(36,152,150,0.8);
+				background: -webkit-gradient(linear, left top, left bottom, from(	rgba(36,152,150,0.7)), to(	rgba(36,152,150,0.3)));
+				background: -moz-linear-gradient(top,  								rgba(36,152,150,0.7),  		rgba(36,152,150,0.3));}
+
+section.frontnav a {	margin:0 auto;	text-align:center;	display:block;
+						font-size:160%;	text-decoration:none;	color:white;} 	/* This are the clickable links at the top of each panel */
+.frontdesc{				display:block;float:left;margin-top:20px;}										/* And this is the spacing for the description of each panel */
+
+nav.catSelect{width:100%;display:block;}
+
+button,input, textarea, select,option {
+   -webkit-appearance: none;
+ }
+nav.catSelect {float:left;clear:both;width:100%;margin:0 0 24px 0;padding:0;font-family:'Museo 700 Regular',Tahoma,Arial,sans-serif;}
+nav.catSelect select{display:none;float:left;text-align:center;height:36px;border:0px;font-family:'Museo 700 Regular',Tahoma,Arial,sans-serif;color:white;font-size:90%;
+  		  		background: #222;width:192px;margin-right:6px;
+  		  		background: -o-linear-gradient(top,
+              rgba(70, 70, 70, 0.9) 0%,
+              rgba(50, 50, 50, 0.9) 50%,
+              rgba(40, 40, 40, 0.9) 50%,
+              rgba(20, 20, 20, 0.9) 100%);
+  				background: -moz-linear-gradient(top,
+              rgba(70, 70, 70, 0.9) 0%,
+              rgba(50, 50, 50, 0.9) 50%,
+              rgba(40, 40, 40, 0.9) 50%,
+              rgba(20, 20, 20, 0.9) 100%);
+  				background: -webkit-gradient(linear, 0 0, 0 100%,
+              color-stop(0, rgba(70, 70, 70, 0.9)),
+              color-stop(0.5, rgba(50, 50, 50, 0.9)),
+              color-stop(0.5, rgba(40, 40, 40, 0.9)),
+              color-stop(1, rgba(20, 20, 20, 0.9)));
+        -webkit-box-shadow: rgba(135, 135, 135, 0.0976562) 1px 1px 1px 0px inset, rgba(135, 135, 135, 0.0976562) -1px -1px 1px 0px inset;
+		padding:6px;
+		border-radius:3px;	-webkit-border-radius:3px;	-moz-border-radius:3px;							-o-border-radius:3px; 
+		-webkit-box-shadow:0 0 6px rgba(0,0,0,0.6);    	-moz-box-shadow:0 0 6px rgba(0,0,0,0.6);     	box-shadow:0 0 6px rgba(0,0,0,0.6);
+              }
+              
+option{text-align:right;}
+   
+ul.taskMenu {padding:0px;display:inline;background:blue;margin:0px;}
+
+ul.taskMenu li.topMenu{background: #222;float:left;text-align:center;font-family:'Museo Slab 500',Tahoma,Arial,sans-serif;
+  		background: #111;
+  		background: -o-linear-gradient(top,
+              rgba(50, 50, 50, 0.9) 0%,
+              rgba(30, 30, 30, 0.9) 50%,
+              rgba(20, 20, 20, 0.9) 50%,
+              rgba(0, 0, 0, 0.9) 100%);
+ 		background: -moz-linear-gradient(top,
+              rgba(50, 50, 50, 0.9) 0%,
+              rgba(30, 30, 30, 0.9) 50%,
+              rgba(20, 20, 20, 0.9) 50%,
+              rgba(0, 0, 0, 0.9) 100%);
+ 		background: -webkit-gradient(linear, 0 0, 0 100%,
+              color-stop(0, rgba(50, 50, 50, 0.9)),
+              color-stop(0.5, rgba(30, 30, 30, 0.9)),
+              color-stop(0.5, rgba(20, 20, 20, 0.9)),
+              color-stop(1, rgba(0, 0, 0, 0.9)));border:0px;color:white;font-size:90%;
+		-webkit-box-shadow: rgba(135, 135, 135, 0.0976562) 1px 1px 1px 0px inset, rgba(135, 135, 135, 0.0976562) -1px -1px 1px 0px inset;
+		padding:6px 0px;margin-right:10px; width:154px;
+		border-radius:3px;	-webkit-border-radius:3px;	-moz-border-radius:3px;							-o-border-radius:3px; 
+		-webkit-box-shadow:0 0 6px rgba(0,0,0,0.6);    	-moz-box-shadow:0 0 6px rgba(0,0,0,0.6);     	box-shadow:0 0 6px rgba(0,0,0,0.6);}
+
+ul.taskMenu li.topMenu:hover {
+  		background: #222;
+  		background: -o-linear-gradient(top,
+              rgba(70, 70, 70, 0.9) 0%,
+              rgba(50, 50, 50, 0.9) 50%,
+              rgba(40, 40, 40, 0.9) 50%,
+              rgba(20, 20, 20, 0.9) 100%);
+  		background: -moz-linear-gradient(top,
+              rgba(70, 70, 70, 0.9) 0%,
+              rgba(50, 50, 50, 0.9) 50%,
+              rgba(40, 40, 40, 0.9) 50%,
+              rgba(20, 20, 20, 0.9) 100%);
+  		background: -webkit-gradient(linear, 0 0, 0 100%,
+              color-stop(0, rgba(70, 70, 70, 0.9)),
+              color-stop(0.5, rgba(50, 50, 50, 0.9)),
+              color-stop(0.5, rgba(40, 40, 40, 0.9)),
+              color-stop(1, rgba(20, 20, 20, 0.9)));
+}
+
+ul.taskMenu li.topMenu:active {
+  background: #000;
+  background: -o-linear-gradient(top,
+              rgba(30, 30, 30, 0.9) 0%,
+              rgba(20, 20, 20, 0.9) 50%,
+              rgba(10, 10, 10, 0.9) 50%,
+              rgba(0, 0, 0, 0.9) 100%);
+  background: -moz-linear-gradient(top,
+              rgba(30, 30, 30, 0.9) 0%,
+              rgba(20, 20, 20, 0.9) 50%,
+              rgba(10, 10, 10, 0.9) 50%,
+              rgba(0, 0, 0, 0.9) 100%);
+  background: -webkit-gradient(linear, 0 0, 0 100%,
+              color-stop(0, rgba(30, 30, 30, 0.9)),
+              color-stop(0.5, rgba(20, 20, 20, 0.9)),
+              color-stop(0.5, rgba(10, 10, 10, 0.9)),
+              color-stop(1, rgba(0, 0, 0, 0.9)));
+}
+
+ul.taskMenu li.lastTask{margin-right:0px;}
+ul.taskMenu a{text-decoration:none;}
+
+
+nav li:hover ul {display:block;}
+
+nav ul ul { 
+	-webkit-box-shadow:0 0 6px rgba(0,0,0,0.6);    	-moz-box-shadow:0 0 6px rgba(0,0,0,0.6);
+	box-shadow:0 0 6px rgba(0,0,0,0.6); border-radius:3px;	-webkit-border-radius:3px;	-moz-border-radius:3px;		-o-border-radius:3px; 
+	display:none; width:154px; position:absolute; margin-top:6px;padding:10px 0; z-index:20;background:#6a6a6a; }  
+
+nav ul ul li {
+	float:none; padding:3px 0;}  
+
+nav ul ul a {
+	border-left:none; border-right:none; font-size:80%; display:block; }  
+
+nav ul ul a:hover {
+	background-color:#555; }  
+
+img.readmap{display:block;width:620px;margin:20px auto;-webkit-box-shadow:0 0 10px rgba(0,0,0,0.6);    	-moz-box-shadow:0 0 10px rgba(0,0,0,0.6);     	box-shadow:0 0 10px rgba(0,0,0,0.6);-webkit-border-radius: 3px;						-moz-border-radius: 3px;		-o-border-radius: 3px;	border-radius: 3px;}
+
+/* ++++++++++++++++++++ BOOKLIST STUFF ++++++++++++++++++++ */
+/* Book Listing should be moved to list.css   				*/
+hr {border-top:solid rgba(0,0,0,0.5);border-bottom:solid rgba(255,255,255,0.3);border-width:1px 0 1px;margin:20px 0;width:100%;clear:both;}
+ul.bookList{display:block;clear:both;padding:0;margin:0;float:left;}
+
+li.listEntry{display:block;margin-bottom:40px;float:left;list-style-type:none;width:628px;padding:10px;}
+section .bookList a{text-decoration:none;}
+li.listEntry:nth-child(even) {}
+img.bookThumb{	display:block;	float:left;		margin-right: 10px;border-radius:3px;	-webkit-border-radius:3px;	-moz-border-radius:3px;							-o-border-radius:3px; -webkit-box-shadow:0 0 15px rgba(0,0,0,1);
+            -moz-box-shadow:0 0 15px rgba(0,0,0,1);
+            box-shadow:0 0 15px rgba(0,0,0,1);}
+span.bookTitle{	display:block;	font-family:'Museo 700 Regular',Tahoma,Arial,sans-serif;	font-size:150%;color:white;}
+span.bookAuthor{display:block;	font-family:'Museo 300 Regular',Tahoma,Arial,sans-serif;	font-size:100%;color:#25bbb8;}
+span.bookShortDesc{display:block;font-family:'Museo 300 Regular',Tahoma,Arial,sans-serif;font-size:100%;color:white;text-align:justify;}
+
+
+.listButton{font-family:'Museo Slab 500';margin-top:12px;
+	 	background: #111;
+	 	background: -o-linear-gradient(top,
+              rgba(50, 50, 50, 0.9) 0%,
+              rgba(30, 30, 30, 0.9) 50%,
+              rgba(20, 20, 20, 0.9) 50%,
+              rgba(0, 0, 0, 0.9) 100%);
+ 		background: -moz-linear-gradient(top,
+              rgba(50, 50, 50, 0.9) 0%,
+              rgba(30, 30, 30, 0.9) 50%,
+              rgba(20, 20, 20, 0.9) 50%,
+              rgba(0, 0, 0, 0.9) 100%);
+ 		background: -webkit-gradient(linear, 0 0, 0 100%,
+              color-stop(0, rgba(50, 50, 50, 0.9)),
+              color-stop(0.5, rgba(30, 30, 30, 0.9)),
+              color-stop(0.5, rgba(20, 20, 20, 0.9)),
+              color-stop(1, rgba(0, 0, 0, 0.9)));
+		border:0px;color:white;font-size:80%;
+		-webkit-box-shadow: rgba(135, 135, 135, 0.0976562) 1px 1px 1px 0px inset, rgba(135, 135, 135, 0.0976562) -1px -1px 1px 0px inset;
+		padding:6px;margin-right:6px; width:80px;
+		border-radius:3px;	-webkit-border-radius:3px;	-moz-border-radius:3px;							-o-border-radius:3px; 
+		-webkit-box-shadow:0 0 6px rgba(0,0,0,0.6);    	-moz-box-shadow:0 0 6px rgba(0,0,0,0.6);     	box-shadow:0 0 6px rgba(0,0,0,0.6);
+}
+
+.listButton:hover {
+  		background: #222;
+  		background: -o-linear-gradient(top,
+              rgba(70, 70, 70, 0.9) 0%,
+              rgba(50, 50, 50, 0.9) 50%,
+              rgba(40, 40, 40, 0.9) 50%,
+              rgba(20, 20, 20, 0.9) 100%);
+  		background: -moz-linear-gradient(top,
+              rgba(70, 70, 70, 0.9) 0%,
+              rgba(50, 50, 50, 0.9) 50%,
+              rgba(40, 40, 40, 0.9) 50%,
+              rgba(20, 20, 20, 0.9) 100%);
+  		background: -webkit-gradient(linear, 0 0, 0 100%,
+              color-stop(0, rgba(70, 70, 70, 0.9)),
+              color-stop(0.5, rgba(50, 50, 50, 0.9)),
+              color-stop(0.5, rgba(40, 40, 40, 0.9)),
+              color-stop(1, rgba(20, 20, 20, 0.9)));
+}
+
+.listButton:active {
+  background: #000;
+    background: -o-linear-gradient(top,
+              rgba(30, 30, 30, 0.9) 0%,
+              rgba(20, 20, 20, 0.9) 50%,
+              rgba(10, 10, 10, 0.9) 50%,
+              rgba(0, 0, 0, 0.9) 100%);
+  background: -moz-linear-gradient(top,
+              rgba(30, 30, 30, 0.9) 0%,
+              rgba(20, 20, 20, 0.9) 50%,
+              rgba(10, 10, 10, 0.9) 50%,
+              rgba(0, 0, 0, 0.9) 100%);
+  background: -webkit-gradient(linear, 0 0, 0 100%,
+              color-stop(0, rgba(30, 30, 30, 0.9)),
+              color-stop(0.5, rgba(20, 20, 20, 0.9)),
+              color-stop(0.5, rgba(10, 10, 10, 0.9)),
+              color-stop(1, rgba(0, 0, 0, 0.9)));
+}
+
+/* 	customize these if the download buttons should look
+	different per platform 									*/
+button.info{}
+button.downloadApple{}
+button.downloadPDF{}
+div.listButtonRow{display:none;}
+
+section.details{display:block;	font-family:'Museo 300 Regular',Tahoma,Arial,sans-serif;	font-size:100%; color:white;margin:40px 0 0 0;padding:0 10px 20px;}
+span.detailedTitle{display:block; font-size:270%;font-family:'Museo 700 Regular',Tahoma,Arial,sans-serif;line-height:1;}
+span.detailedSubtitle{display:block;font-size:120%;line-height:2;}
+span.detailedAuthor{display:block;margin-top:10px;margin-bottom:20px;font-size:150%;line-height:1;font-family:'Museo 300 Regular',Tahoma,Arial,sans-serif;}
+
+p.seriesTitle{color:rgb(164, 56, 21);display:block;clear:both;font-family:'Museo 700 Regular',Tahoma,Arial,sans-serif;	font-size:180%;padding-bottom:20px;text-align:left;}
+
+
+/* span.detailedDesc to be changed into a div */
+div.detailedDesc{display:block; padding-bottom:20px;}
+div.detailedDesc p{margin:1em 0;text-align:justify;}
+div.detailedDesc blockquote{font-size:0.8em;font-style:italic;display:block;text-align:left;margin:1em auto 2em;}
+div.detailedMisc{display:block;}
+div.detailedCatalog{margin:0;}
+div.detailedDesc h2{font-size:125%;font-family:'Museo 700 Regular',Tahoma,Arial,sans-serif;font-weight:normal;}
+div.detailedButtonRow{width:300px;margin:0 0 20px;}
+div.detailedDesc ul{padding:0;list-style:none;text-wrap:none;clear:both;max-width:100%;margin-top:50px;}
+/* div.detailedDesc ul:before{content: "Table of Contents";font-size:125%;font-family:'Museo 700 Regular',arial,sans-serif;font-weight:normal;} */
+/* div.detailedDesc ul li{margin:0;padding:10px 0;text-align:right;font-style:normal;text-wrap:none;white-space:nowrap;clear:both}
+div.detailedDesc ul li strong, div.detailedDesc ul li em{float:left;padding:0 10px; font-weight:normal; text-wrap:normal; white-space:normal; max-width:700px; text-align:left;}
+div.detailedDesc li em{float:none;} */
+
+img.detailedCover{height:300px;width:auto;float:left;display:block;-webkit-box-shadow:0 0 7px rgba(0,0,0,1);margin:5px 30px 20px 0px;
+            -moz-box-shadow:0 0 7px rgba(0,0,0,1);
+            box-shadow:0 0 7px rgba(0,0,0,1);border-radius:5px;	-webkit-border-radius:5px;	-moz-border-radius:5px;							-o-border-radius:5px; }
+            
+.detailedButton{font-family:'Museo Slab 500',Tahoma,Arial,sans-serif;margin-top:12px;
+	 	background: #111;
+	 	background: -o-linear-gradient(top,
+              rgba(50, 50, 50, 0.9) 0%,
+              rgba(30, 30, 30, 0.9) 50%,
+              rgba(20, 20, 20, 0.9) 50%,
+              rgba(0, 0, 0, 0.9) 100%);
+ 		background: -moz-linear-gradient(top,
+              rgba(50, 50, 50, 0.9) 0%,
+              rgba(30, 30, 30, 0.9) 50%,
+              rgba(20, 20, 20, 0.9) 50%,
+              rgba(0, 0, 0, 0.9) 100%);
+ 		background: -webkit-gradient(linear, 0 0, 0 100%,
+              color-stop(0, rgba(50, 50, 50, 0.9)),
+              color-stop(0.5, rgba(30, 30, 30, 0.9)),
+              color-stop(0.5, rgba(20, 20, 20, 0.9)),
+              color-stop(1, rgba(0, 0, 0, 0.9)));
+		border:0px;color:white;font-size:80%;
+		-webkit-box-shadow: rgba(135, 135, 135, 0.0976562) 1px 1px 1px 0px inset, rgba(135, 135, 135, 0.0976562) -1px -1px 1px 0px inset;
+		padding:6px;margin-right:6px; width:140px;
+		border-radius:3px;	-webkit-border-radius:3px;	-moz-border-radius:3px;							-o-border-radius:3px; 
+		-webkit-box-shadow:0 0 6px rgba(0,0,0,0.6);    	-moz-box-shadow:0 0 6px rgba(0,0,0,0.6);     	box-shadow:0 0 6px rgba(0,0,0,0.6);
+}
+
+.detailedButton:hover {
+  		background: #222;
+  		background: -o-linear-gradient(top,
+              rgba(70, 70, 70, 0.9) 0%,
+              rgba(50, 50, 50, 0.9) 50%,
+              rgba(40, 40, 40, 0.9) 50%,
+              rgba(20, 20, 20, 0.9) 100%);
+  		background: -moz-linear-gradient(top,
+              rgba(70, 70, 70, 0.9) 0%,
+              rgba(50, 50, 50, 0.9) 50%,
+              rgba(40, 40, 40, 0.9) 50%,
+              rgba(20, 20, 20, 0.9) 100%);
+  		background: -webkit-gradient(linear, 0 0, 0 100%,
+              color-stop(0, rgba(70, 70, 70, 0.9)),
+              color-stop(0.5, rgba(50, 50, 50, 0.9)),
+              color-stop(0.5, rgba(40, 40, 40, 0.9)),
+              color-stop(1, rgba(20, 20, 20, 0.9)));		
+        -webkit-box-shadow:0 0 6px rgba(35,178,175,1);    	-moz-box-shadow:0 0 6px rgba(35,178,175,0.6);     	box-shadow:0 0 6px rgba(35,178,175,0.6);
+        
+}
+
+.detailedButton:active {
+  background: #000;
+  background: -o-linear-gradient(top,
+              rgba(30, 30, 30, 0.9) 0%,
+              rgba(20, 20, 20, 0.9) 50%,
+              rgba(10, 10, 10, 0.9) 50%,
+              rgba(0, 0, 0, 0.9) 100%);
+  background: -moz-linear-gradient(top,
+              rgba(30, 30, 30, 0.9) 0%,
+              rgba(20, 20, 20, 0.9) 50%,
+              rgba(10, 10, 10, 0.9) 50%,
+              rgba(0, 0, 0, 0.9) 100%);
+  background: -webkit-gradient(linear, 0 0, 0 100%,
+              color-stop(0, rgba(30, 30, 30, 0.9)),
+              color-stop(0.5, rgba(20, 20, 20, 0.9)),
+              color-stop(0.5, rgba(10, 10, 10, 0.9)),
+              color-stop(1, rgba(0, 0, 0, 0.9)));
+  color:rgb(35,178,175);
+}
+
+details{margin:1em 0;}
+details summary{font-weight:normal;font-family:'Museo 700 Regular',Tahoma,Arial,sans-serif;font-size:120%;}
+
+table.tableOfContents{}
+
+table.tableOfContents tr:nth-child(even){background-color:rgba(255,255,255,0.1);}
+
+table.tableOfContents td.tocChapter{width:50%;border-bottom: 0px solid #ccc;padding:10px;margin:0;vertical-align:top;}
+
+table.tableOfContents td.tocAuthor{width:50%;border-bottom: 0px solid #ccc;padding:10px;margin:0;vertical-align:top;}
+
+details details {padding-left:15px;}
+
+section.signIn{font-family:'Museo 300 Regular',Tahoma,Arial,sans-serif; width:302px; margin:10px auto; }
+
+input {  
+	padding: 9px;  margin-bottom:10px;
+    border: solid 1px #E5E5E5;  
+    outline: 0;  
+    font: normal 13px/100% Verdana, Tahoma, sans-serif;  
+    width: 282px;  
+    background: #FFFFFF;  
+    }  
+  
+
+  
+input:hover, textarea:hover,  
+input:focus, textarea:focus {  
+    border-color: #C9C9C9;  
+    }  
+  
+.form label {  
+    margin-left: 10px;
+    display:none;
+    }  
+  
+.submit input {  
+	width:302px;
+    background: #111;
+ 		background: -moz-linear-gradient(top,
+              rgba(50, 50, 50, 0.9) 0%,
+              rgba(30, 30, 30, 0.9) 50%,
+              rgba(20, 20, 20, 0.9) 50%,
+              rgba(0, 0, 0, 0.9) 100%);
+ 		background: -webkit-gradient(linear, 0 0, 0 100%,
+              color-stop(0, rgba(50, 50, 50, 0.9)),
+              color-stop(0.5, rgba(30, 30, 30, 0.9)),
+              color-stop(0.5, rgba(20, 20, 20, 0.9)),
+              color-stop(1, rgba(0, 0, 0, 0.9)));
+		border:0px;color:white;font-size:80%;
+		-webkit-box-shadow: rgba(135, 135, 135, 0.0976562) 1px 1px 1px 0px inset, rgba(135, 135, 135, 0.0976562) -1px -1px 1px 0px inset;
+		padding:9px;
+		border-radius:3px;	-webkit-border-radius:3px;	-moz-border-radius:3px;							-o-border-radius:3px; 
+		-webkit-box-shadow:0 0 6px rgba(0,0,0,0.6);    	-moz-box-shadow:0 0 6px rgba(0,0,0,0.6);     	box-shadow:0 0 6px rgba(0,0,0,0.6);
+    }  
+
+
+
+/*	13-column layout
+	60 px columns, 24 px gutters, 72 px margins, 1212 px total (extra space for scrollbars)
+	---------------------------------------------------------------------------------------
+	1     2      3      4      5      6      7      8      9      10     11     12     13
+	60px  144px  228px  312px  396px  480px  564px  648px  732px  816px  900px  984px  1068px	*/
+
+@media only screen and (min-width: 1212px) {
+	
+	body {
+		padding: 0px 72px 0; /*96*/
+		width: 1068px;
+	}
+	
+	.frontBooks{
+		height:270px;width:219px;margin-right:24px;padding:15px;}
+	.frontLibrary{
+		height:270px;width:219px;margin-right:24px;padding:15px;}
+	.frontMultimedia{
+		height:270px;width:219px;margin-right:24px;padding:15px;}
+	.frontAbout{height:270px;width:219px;margin:0px;padding:15px;}
+	
+	li.listEntry{margin-bottom:40px;width:502px;margin-right:24px;	-webkit-box-shadow:0 0 0; -moz-box-shadow:0 0 0 ;box-shadow: 0 0 0;}
+	li.listEntry:nth-child(even) {margin-right:0px;} /* Add modernizr or something to make this compatible with older browsers */
+	.frontdesc{margin-top:100px;}
+	section.frontnav a {margin:0 auto;text-align:center;display:block;font-size:180%;text-decoration:none;}
+	img.bookThumb{ /*-webkit-transform: rotate(-3deg); -moz-transform: rotate(-3deg); -o-transform: rotate(-3deg); */}
+    img.bookThumb:hover{/* -webkit-transform: rotate(6deg); -moz-transform: rotate(6deg); -o-transform: rotate(6deg); */}
+	nav.catSelect select{display:none;}
+	ul.taskMenu li.topMenu{padding:6px 0px;margin-right:10px; width:259px; font-size:100%}
+	ul.taskMenu li.lastTask{margin-right:0px;}
+	nav li:hover ul {display:block;}
+	nav ul ul { display:none; width:259px; position:absolute; margin-top:6px;padding:10px 0; z-index:20;background:#6a6a6a; }  
+	nav ul ul li { float:none; }  
+	nav ul ul a {border-left:none; border-right:none; font-size:100%;display:block; }  
+	nav ul ul a:hover { background-color:#555; }  
+
+}
+
+
+/*	5-column layout
+	60 px columns, 24 px gutters, 42 px margins, 480 px total
+	---------------------------------------------------------
+	1     2      3      4      5
+	60px  144px  228px  312px  396px	*/
+
+@media only screen and (max-width: 767px) and (min-width: 480px) {
+	
+	body {
+		padding: 0px 42px 0;/*60*/
+		width: 396px;
+		/* Prevents Mobile Safari from bumping up font sizes in landscape */
+		-webkit-text-size-adjust: 100%; 
+	}
+	
+	header{height:80px;}
+
+	.frontBooks{height:100px;width:376px;margin-bottom:24px;padding:10px;}
+	.frontLibrary{height:100px;width:376px;margin-bottom:24px;padding:10px}
+	.frontMultimedia{height:100px;width:376px;margin-bottom:24px;padding:10px;}
+	.frontAbout{height:100px;width:376px;margin-bottom:24px;padding:10px;}
+	
+	.frontBooks p{font-size:80%;}
+	.frontLibrary p{font-size:80%;}
+	.frontMultimedia p{font-size:80%;}
+	.frontAbout p{font-size:80%;}
+	
+	li.listEntry{width:376px;  /*-webkit-box-shadow:0 0 15px rgba(0,0,0,0.6);
+            -moz-box-shadow:0 0 15px rgba(0,0,0,0.6);
+            box-shadow:0 0 15px rgba(0,0,0,0.6);*/}
+	
+	footer{display:hidden;}
+	
+	img.logo{width:75%;}
+	img.bookThumb{display:block;size:50%;}
+	img.detailedCover{width:100px;height:auto;}
+	.frontdesc{margin-top:5px;}
+	section.frontnav a {margin:0 auto;text-align:center;display:block;font-size:160%;text-decoration:none;}
+	span.bookShortDesc{display:none;}
+	nav.catSelect select{display:block;width:100%;}
+	nav.catSelect ul{display:none;}
+	span.bookTitle{font-size:120%;color:white;}
+	span.bookAuthor{font-size:100%;color:#25bbb8;}
+	img.readmap{display:none;}
+	div.listButtonRow{display:block;}
+}
+
+
+
+
+/*	3-column layout
+	60 px columns, 24 px gutters, 46 px margins, 320 px total
+	---------------------------------------------------------
+	1     2      3
+	60px  144px  228px	*/
+
+@media only screen and (max-width: 479px) {
+	
+	body {
+		padding: 0px 0px 46px;/*46*/
+		width: 312px;
+/* Prevents Mobile Safari from bumping up font sizes in landscape */
+		-webkit-text-size-adjust: 100%;
+	}
+	
+	header{height:80px;width:100%}
+	
+	img.logo{width:90%}
+	
+	.frontBooks{height:25px;width:292px;margin-bottom:14px;padding:10px}
+	.frontLibrary{height:25px;width:292px;margin-bottom:14px;padding:10px}
+	.frontMultimedia{height:25px;width:292px;margin-bottom:14px;padding:10px}
+	.frontAbout{height:25px;width:292px;margin-bottom:14px;padding:10px;}
+	
+	footer{display:block;}
+	.frontBooks p{display:none;}
+	.frontLibrary p{display:none;}
+	.frontMultimedia p{display:none;}
+	.frontAbout p{display:none;}
+	img.bookThumb{display:none;}
+	div.listButtonRow{display:none;}
+    span.bookShortDesc{display:none;}
+	
+	li.listEntry{width:292px; margin-bottom:10px;/* -webkit-box-shadow:0 0 15px rgba(0,0,0,0.6);
+    -moz-box-shadow:0 0 15px rgba(0,0,0,0.6);
+    box-shadow:0 0 15px rgba(0,0,0,0.6); */}
+            
+    section.frontnav a {font-size:130%;}
+    
+	span.bookTitle{font-size:120%;color:white;}
+	span.bookAuthor{font-size:100%;color:#25bbb8;}
+	nav.catSelect select{display:block;width:100%;}
+	nav.catSelect ul{display:none;}
+	img.detailedCover{display:none;}
+	span.detailedTitle{font-size:150%;}
+	span.detailedAuthor{font-size:100%;}
+	img.readmap{display:none;}
+}
+
+
+
+
+/*	Overrides for iPhone 4 
+	and other high device-pixel-ratio devices
+	-----------------------------------------	*/
+
+@media 
+	only screen and (-webkit-min-device-pixel-ratio: 2),
+	only screen and (min-device-pixel-ratio: 2) {
+	
+	#example {
+		background: rgb(255,158,97);
+	}
+	
+}
+
+

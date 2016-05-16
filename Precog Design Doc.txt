@@ -1,0 +1,16 @@
+Precog Security
+
+Domestic
+Legal
+Social
+Corporate
+
+Design social network and deploy on google app engine
+Map video & graph
+Implement static/dynamic content pages.
+Implement A.I
+make precog accessible remotely.
+add development tools to site.
+use sample data to make analysis of a user's life.
+implement surveys
+intergrate all social networks through intelligent network finder

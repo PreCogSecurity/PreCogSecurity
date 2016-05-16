@@ -1,0 +1,12 @@
+# HTTrack Website Copier Cookie File
+# This file format is compatible with Netscape cookies
+www.ctheory.net	TRUE	/	FALSE	1999999999	ASPSESSIONIDCCRABRRQ	MFNPHCBDMDJMDOBPFDOJOPLE
+www.ctheory.net	TRUE	/	FALSE	1999999999	PHPSESSID	3g99jdqjkum3jckhbh2pthuhn6
+www.pactac.net	TRUE	/	FALSE	1999999999	BIGipServerPOOL_ust_prod_http	1771530382.20480.0000
+upload.wikimedia.org	TRUE	/	FALSE	1999999999	WMF-Last-Access	26-Apr-2016
+pactac.net	TRUE	/	FALSE	1999999999	BIGipServerPOOL_ust_prod_http	1771530382.20480.0000
+.wikipedia.org	TRUE	/	FALSE	1999999999	GeoIP	ZW:04:Harare:-17.82:31.04:v4
+www.ritsumei.ac.jp	TRUE	/	FALSE	1999999999	DMZ	80259264.20480.0000
+en.wikipedia.org	TRUE	/	FALSE	1999999999	WMF-Last-Access	26-Apr-2016
+www.ctheory.net	TRUE	/	FALSE	1999999999	ASPSESSIONIDQSCAASTS	LLEBGPLDOCLMECIICHHGEHAJ
+
