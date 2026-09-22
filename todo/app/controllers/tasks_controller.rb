@@ -8,16 +8,16 @@ class TasksController < ApplicationController
     respond_to do |format|
       format.html
       format.json do
-        render :json => {:tasks => Task.all.map(&:to_json) }
+        # as_json (not to_json) so the payload is not double-encoded.
+        render :json => { :tasks => Task.all.as_json }
       end
     end
   end
 
   def create
     @list = List.find(params[:list_id])
-    raw_params = params[:task].is_a?(String) ? JSON.parse(params[:task]) : params[:task]
-    task_params = ActionController::Parameters.new(raw_params)
-    @task = @list.tasks.new(task_params.permit(:name))
+    @task = @list.tasks.new(task_params)
+
     if @task.save
       status = "success"
       flash[:notice] = "Your task was created."
@@ -30,7 +30,11 @@ class TasksController < ApplicationController
         redirect_to(list_tasks_url(@list))
       end
       format.json do
-        render :json => {:status => status, :task => @task.to_json}
+        if status == "success"
+          render :json => { :status => status, :task => @task.as_json }
+        else
+          render :json => { :status => status, :errors => @task.errors.full_messages }, :status => :unprocessable_entity
+        end
       end
     end
   end
@@ -41,24 +45,42 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.update_attributes(task_attributes)
-        format.html { redirect_to( list_tasks_url(@list), :notice => 'Task was successfully updated.') }
+        format.html { redirect_to(list_tasks_url(@list), :notice => 'Task was successfully updated.') }
+        format.json { render :json => { :status => 'success', :task => @task.as_json } }
       else
-        format.html { render :action => "edit" }
+        # The routes intentionally expose no edit view; surface the failure
+        # instead of rendering a template that does not exist.
+        format.html { redirect_to(list_tasks_url(@list), :alert => 'There was an error updating your task.') }
+        format.json { render :json => { :status => 'failure', :errors => @task.errors.full_messages }, :status => :unprocessable_entity }
       end
     end
   end
 
   def destroy
     @list = List.find(params[:list_id])
-    @task = Task.find(params[:id])
+    # Scope the lookup to the list so a task cannot be deleted through a
+    # mismatched list id.
+    @task = @list.tasks.find(params[:id])
     @task.destroy
 
     respond_to do |format|
       format.html { redirect_to(list_tasks_url(@list)) }
+      format.json { render :json => { :status => 'success' } }
     end
   end
 
   private
+
+  def task_params
+    raw = params[:task]
+    raw = JSON.parse(raw) if raw.is_a?(String)
+    unless raw.is_a?(Hash)
+      raise ActionController::BadRequest, 'task parameters must be an object'
+    end
+    ActionController::Parameters.new(raw).permit(:name)
+  rescue JSON::ParserError
+    raise ActionController::BadRequest, 'task parameters contain invalid JSON'
+  end
 
   def task_attributes
     params.require(:task).permit(:name, :done, :list_id)

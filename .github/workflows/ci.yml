@@ -1,0 +1,82 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  test:
+    name: Test (Ruby 2.7 / Rails 4.2)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: todo
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install system libraries for native gems
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            libsqlite3-dev libmysqlclient-dev libpq-dev
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          # Rails 4.2 is the last line that runs on Ruby 2.7; newer Rubies
+          # are not supported by this framework version.
+          ruby-version: '2.7'
+
+      - name: Install gems
+        run: |
+          # Rails 4.2's gemspec requires bundler < 2.0; 1.17.3 is the final
+          # 1.x release and works on Ruby 2.7.
+          gem install bundler -v '1.17.3'
+          bundle config set --local path vendor/bundle
+          # Gemfile.lock was regenerated for Ruby 2.7 (rails 4.2.11.3,
+          # nokogiri 1.15.x, modern adapters); `bundle install` installs the
+          # locked set exactly.
+          bundle install
+
+      - name: Prepare test database
+        run: bundle exec rake db:test:prepare
+
+      - name: Run test suite
+        run: bundle exec rails test
+
+      - name: Run linter
+        run: bundle exec rubocop
+
+  audit:
+    name: Dependency audit (informational)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: todo
+    # The app currently ships on Rails 4.2, which is end-of-life. The audit is
+    # intentionally non-blocking so the upgrade path stays visible without
+    # turning every CI run red. Treat findings as a backlog for the Rails
+    # upgrade.
+    continue-on-error: true
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '2.7'
+
+      - name: Install gems
+        run: |
+          gem install bundler -v '1.17.3'
+          bundle config set --local path vendor/bundle
+          bundle install
+
+      - name: Run bundler-audit
+        run: |
+          gem install bundler-audit
+          bundle-audit check --update

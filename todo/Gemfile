@@ -1,11 +1,10 @@
-if RUBY_VERSION =~ /1.9/
-  Encoding.default_external = Encoding::UTF_8
-  Encoding.default_internal = Encoding::UTF_8
-end
-
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.2.0'
+# Rails 4.2 is the last release line that supports the Ruby versions this app
+# was originally built against. `~> 4.2.11` resolves to the final 4.2.x
+# release (4.2.11.3), which includes every backported security fix and is
+# compatible with Ruby 2.7 and Bundler 2.x.
+gem 'rails', '~> 4.2.11'
 
 gem 'ey_config'
 gem 'rails_autolink'
@@ -17,43 +16,27 @@ gem 'sass-rails'
 gem 'coffee-rails'
 gem 'uglifier'
 
-platform :ruby do
-  gem 'mysql2'
-  gem 'pg'
-  gem 'activerecord-postgis-adapter', '3.0.0.beta2'
-  gem 'sqlite3'
+# MRI-only runtime gems. Version pins keep the bundle resolvable on modern
+# toolchains (Ruby 2.7 / Bundler 1.x) while staying compatible with Rails 4.2
+# and Rack 1.6. Legacy JRuby/Rubinius platform blocks were removed: they are
+# unmaintained, break lockfile generation, and this app only deploys on MRI.
+gem 'mysql2', '~> 0.5'
+gem 'pg', '~> 1.2'
+gem 'activerecord-postgis-adapter', '3.0.0.beta2'
+gem 'sqlite3', '~> 1.4'
 
-  gem 'newrelic_rpm'
-  gem 'unicorn'
-  gem 'puma'
-  gem 'json'
-  gem 'minitest'
-  gem 'psych'
-  gem 'racc'
-end
-
-platforms :jruby do
-  ar_jdbc_version = '~> 1.3'
-  gem 'activerecord-jdbc-adapter', ar_jdbc_version
-  gem 'activerecord-jdbcmysql-adapter', ar_jdbc_version
-  gem 'activerecord-jdbcpostgresql-adapter', ar_jdbc_version
-  gem 'activerecord-jdbcsqlite3-adapter', ar_jdbc_version
-  gem 'jdbc-mysql', :require => false
-  gem 'jdbc-sqlite3', :require => false
-  gem 'jdbc-postgres', :require => false
-
-  gem 'jruby-openssl'
-  gem 'trinidad'
-end
-
-platform :rbx do
-  gem 'rubysl'
-  gem 'rubysl-test-unit', :require => false
-end
+gem 'newrelic_rpm', '~> 6.9'
+gem 'unicorn', '~> 5.5'
+gem 'puma', '~> 3.12'
+gem 'json'
+gem 'minitest', '~> 5.14'
+gem 'psych', '~> 3.1'
+gem 'racc'
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
 group :development, :test do
-
+  gem 'rubocop', '~> 1.28', :require => false
+  gem 'simplecov', '~> 0.17.1', :require => false
 end

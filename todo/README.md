@@ -1,17 +1,48 @@
-[![Build Status](https://travis-ci.org/engineyard/todo.png?branch=update_rails)](https://travis-ci.org/engineyard/todo)
-[![Code Climate](https://codeclimate.com/github/engineyard/todo.png)](https://codeclimate.com/github/engineyard/todo)
-
-
 # Todo for everyone
 
-Simple GTD app for task tracking.
+Simple GTD (Getting Things Done) app for task tracking, built with Rails 4.2.
 
 Supports all Rubies and many stacks (passenger, unicorn, trinidad/jruby).
 
-# To run individual tests: (for example)
+## Setup
 
-bundle exec ruby -Itest test/functional/lists_controller_test.rb
+```sh
+bundle install
+bundle exec rake db:create db:migrate
+bundle exec rails server
+```
 
-# To run specific tests: (for example)
+## Tests
 
-bundle exec ruby -Itest test/functional/lists_controller_test.rb --name test_should_create_list
+Run the full suite:
+
+```sh
+bundle exec rake db:test:prepare
+bundle exec rails test
+```
+
+Run a single test file (for example):
+
+```sh
+bundle exec ruby -Itest test/controllers/lists_controller_test.rb
+```
+
+Run a specific test by name (for example):
+
+```sh
+bundle exec ruby -Itest test/controllers/lists_controller_test.rb --name test_should_create_list
+```
+
+A SimpleCov coverage report is written to `coverage/` after every test run.
+
+## Lint
+
+```sh
+bundle exec rubocop
+```
+
+## Configuration
+
+All production configuration is read from environment variables — see
+[`.env.example`](.env.example). `SECRET_KEY_BASE` and `DATABASE_URL` are
+required in production; the app fails to boot without them.

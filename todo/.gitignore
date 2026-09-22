@@ -1,5 +1,18 @@
 log/*
 db/*.sqlite3
+db/*.sqlite3-journal
 tmp
 .DS_Store
 .sass-cache
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Bundler
+.bundle/
+vendor/bundle/
+
+# Test coverage
+coverage/
