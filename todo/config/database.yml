@@ -15,8 +15,11 @@ test:
   pool: 5
   timeout: 5000
 
+# SECURITY: production configuration is read entirely from the environment so
+# no credentials are committed to the repository. If DATABASE_URL is not set
+# the application fails to boot (fail-closed) instead of silently using an
+# insecure default.
 production:
-  adapter: sqlite3
-  database: db/production.sqlite3
-  pool: 5
+  url: <%= ENV["DATABASE_URL"] %>
+  pool: <%= ENV.fetch("DB_POOL", 5) %>
   timeout: 5000

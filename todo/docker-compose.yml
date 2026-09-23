@@ -1,0 +1,34 @@
+services:
+  db:
+    image: postgres:14-alpine
+    environment:
+      # Local-only development credentials; never used outside this compose
+      # stack. Production deployments supply DATABASE_URL externally.
+      POSTGRES_USER: precog
+      POSTGRES_PASSWORD: precog
+      POSTGRES_DB: precog_production
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U precog"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      # Fail-closed: compose refuses to start without a real secret.
+      SECRET_KEY_BASE: ${SECRET_KEY_BASE:?set SECRET_KEY_BASE in your environment}
+      DATABASE_URL: postgresql://precog:precog@db:5432/precog_production
+      DB_POOL: "5"
+      RAILS_SERVE_STATIC_FILES: "true"
+      RAILS_LOG_TO_STDOUT: "true"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  db_data:

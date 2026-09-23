@@ -42,11 +42,12 @@ Rails.application.configure do
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = true
+  # Enabled so the deployed app fails closed rather than serving over plaintext.
+  config.force_ssl = true
 
-  # Use the lowest log level to ensure availability of diagnostic information
-  # when problems arise.
-  config.log_level = :debug
+  # Log at :info in production; :debug leaks request internals and inflates
+  # storage costs. Raise to :warn if log volume is a concern.
+  config.log_level = :info
 
   # Prepend all log lines with the following tags.
   # config.log_tags = [ :subdomain, :uuid ]
@@ -72,7 +73,9 @@ Rails.application.configure do
   config.active_support.deprecation = :notify
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
-  config.log_formatter = ::Logger::Formatter.new
+  # Structured JSON logging (see config/initializers/json_log_formatter.rb)
+  # makes production logs machine-parseable for aggregation and alerting.
+  config.log_formatter = JsonLogFormatter.new
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false

@@ -1,0 +1,27 @@
+# RuboCop configuration for the todo Rails application.
+#
+# This codebase predates RuboCop by several years and intentionally uses the
+# hash-rocket style of the Rails 4 era. Rather than churning the whole tree to
+# satisfy style cops, we enable only the Lint and Security families: these
+# catch real defects (dead code, unsafe parsing, shadowed variables) without
+# imposing a style migration. Style and Metrics cops are disabled by default.
+
+AllCops:
+  DisabledByDefault: true
+  TargetRubyVersion: 2.7
+  Exclude:
+    - 'bin/**/*'          # Rails binstubs (shebang scripts, not app code)
+    - 'db/schema.rb'      # auto-generated
+    - 'vendor/**/*'       # vendored gems and third-party code
+    - 'node_modules/**/*'
+
+# Empty helper modules are a deliberate Rails convention; the helpers are
+# extension points for view code.
+Lint/EmptyClass:
+  Enabled: false
+
+# The Gemfile intentionally contains platform blocks (jruby/rbx) that are
+# inert on MRI; the empty development/test group is a documented extension
+# point.
+Lint/EmptyBlock:
+  Enabled: false
