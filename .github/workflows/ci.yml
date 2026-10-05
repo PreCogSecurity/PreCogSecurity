@@ -12,6 +12,10 @@ jobs:
     defaults:
       run:
         working-directory: todo
+    env:
+      # Coverage floor enforced by todo/test/test_helper.rb. Ratchet upward
+      # once the suite is measured -- see the note in test_helper.rb.
+      COVERAGE_MINIMUM: "60"
 
     steps:
       - name: Checkout repository
@@ -29,16 +33,17 @@ jobs:
           # Rails 4.2 is the last line that runs on Ruby 2.7; newer Rubies
           # are not supported by this framework version.
           ruby-version: '2.7'
+          bundler-cache: false
 
       - name: Install gems
         run: |
-          # Rails 4.2's gemspec requires bundler < 2.0; 1.17.3 is the final
-          # 1.x release and works on Ruby 2.7.
           gem install bundler -v '1.17.3'
           bundle config set --local path vendor/bundle
-          # Gemfile.lock was regenerated for Ruby 2.7 (rails 4.2.11.3,
-          # nokogiri 1.15.x, modern adapters); `bundle install` installs the
-          # locked set exactly.
+          # Gemfile.lock is committed and pins rails 4.2.11.3 (the final 4.2.x
+          # line, with every backported security fix), nokogiri 1.15.x and
+          # modern database adapters. `bundle install` installs the locked set
+          # exactly; there is no vendored gem cache in the tree to diverge
+          # from it.
           bundle install
 
       - name: Prepare test database
@@ -47,8 +52,60 @@ jobs:
       - name: Run test suite
         run: bundle exec rails test
 
+      - name: Publish coverage summary
+        if: always()
+        run: |
+          if [ -f coverage/.last_run.json ]; then
+            pct=$(ruby -rjson -e 'puts JSON.parse(File.read("coverage/.last_run.json"))["result"]["covered_percent"].round(2)')
+            echo "| Coverage | ${pct}% (floor ${COVERAGE_MINIMUM}%) |" >> "$GITHUB_STEP_SUMMARY"
+            echo "### Test coverage: ${pct}% (floor ${COVERAGE_MINIMUM}%)" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "No SimpleCov report was produced." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
       - name: Run linter
         run: bundle exec rubocop
+
+  container:
+    name: Container image builds
+    runs-on: ubuntu-latest
+    # A Dockerfile that is never built is an untested artifact that only fails at
+    # a customer's first deploy. This job builds the image and then proves it
+    # fails closed: booting without SECRET_KEY_BASE must abort rather than fall
+    # back to a baked-in secret.
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build the todo/ image
+        run: docker build -t precog-todo:test todo
+
+      - name: Assert the image has no baked-in secrets
+        run: |
+          # config/secrets.yml legitimately contains the *key*
+          # `secret_key_base:` followed by an ENV lookup. What must never appear
+          # is a literal value, so match the value position specifically.
+          if docker run --rm --entrypoint sh precog-todo:test -c \
+              'grep -rE "secret_key_base:[[:space:]]*[0-9a-f]{32,}" /app/config' \
+            | grep -q .; then
+            echo "::error::a literal secret_key_base is baked into the image"
+            exit 1
+          fi
+          if docker run --rm --entrypoint sh precog-todo:test -c 'test -f /app/.env'; then
+            echo "::error::a .env file was copied into the image"
+            exit 1
+          fi
+
+      - name: Assert the app refuses to boot without SECRET_KEY_BASE
+        run: |
+          # RAILS_ENV=production is baked into the image, so booting it with no
+          # SECRET_KEY_BASE must abort rather than fall back to a default key.
+          # The guard lives in config/environments/production.rb.
+          if docker run --rm --entrypoint bundle precog-todo:test \
+               exec rails runner 'puts :booted'; then
+            echo "::error::app booted in production without SECRET_KEY_BASE (fail-open)"
+            exit 1
+          fi
 
   audit:
     name: Dependency audit (informational)
@@ -69,6 +126,7 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '2.7'
+          bundler-cache: false
 
       - name: Install gems
         run: |

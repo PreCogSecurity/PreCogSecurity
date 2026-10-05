@@ -1,0 +1,36 @@
+version: 2
+
+# Automated dependency updates. The bundle ecosystem is rooted at /todo because
+# that is the only gem-based application in the repository; the archived
+# prototypes ship no Gemfile.lock and are deliberately out of scope.
+updates:
+  - package-ecosystem: bundler
+    directory: /todo
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+    open-pull-requests-limit: 5
+    labels:
+      - dependencies
+      - security
+    # Rails 4.2 is past end of life and the app pins to the final 4.2.x line
+    # (which carries every backported security fix). Dependabot may propose
+    # patch-level bumps within the existing pins; anything wider belongs to the
+    # tracked Rails 5+/6 upgrade, not to a routine bump.
+    allow:
+      - dependency-name: "*"
+        update-types:
+          - patch
+          - minor
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+    open-pull-requests-limit: 3
+    labels:
+      - dependencies
+      - ci

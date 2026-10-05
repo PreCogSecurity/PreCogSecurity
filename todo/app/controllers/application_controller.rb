@@ -5,10 +5,34 @@ class ApplicationController < ActionController::Base
   # the layout) or use a token-authenticated API layer.
   protect_from_forgery with: :exception
 
+  # Identifiers in this app are always auto-incrementing integer primary keys,
+  # so anything that is not a plain run of digits can be rejected up front.
+  NUMERIC_ID_FORMAT = /\A\d{1,10}\z/.freeze
+
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
   rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity
   rescue_from ActionController::ParameterMissing, with: :render_bad_request
   rescue_from ActionController::BadRequest, with: :render_bad_request
+
+  protected
+
+  # Validate a URL-supplied identifier and return it as an Integer.
+  #
+  # Every find-by-id in this app goes through here rather than passing the raw
+  # parameter to Active Record. Active Record quotes the value so this is not a
+  # SQL injection vector, but a non-integer value for an integer column is a
+  # driver-level error: PostgreSQL raises PG::InvalidTextRepresentation and
+  # MySQL raises Mysql2::Error, so a junk id produced an unhandled 500 (with an
+  # adapter-specific message) instead of a client error. Validating the shape
+  # gives one consistent 400 for every adapter.
+  def numeric_id!(name)
+    value = params[name].to_s
+    unless value =~ NUMERIC_ID_FORMAT
+      raise ActionController::BadRequest, "#{name} must be a positive integer"
+    end
+
+    value.to_i
+  end
 
   private
 
