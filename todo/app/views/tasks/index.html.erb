@@ -45,7 +45,7 @@
 			 		<li> 
 					    <%= f.input :done ,   :input_html => { :class => 'box'  } , :label => false  %>
 					    <%= f.button :submit ,  :class => 'hidden'   %>
-					    <%= raw auto_link( h(task.name), :html => { :target => '_blank' }) %>
+					    <%= linked_task_name(task) %>
 					    <p class="delete-task">
 					        <%= link_to 'X', list_task_url(list, task), :confirm => 'Are you sure?', :method => :delete %>
 					    </p>
@@ -61,7 +61,7 @@
     		<ul class="tasks finished-tasks">
     		    <% list.done_tasks.each do |task| %>
         		<li class="finished">
-        		    <%= raw auto_link( h(task.name), :html => { :target => '_blank' }) %>
+        		    <%= linked_task_name(task) %>
         		    <p class="delete-task">
     			        <%= link_to 'X', list_task_url(list, task), :confirm => 'Are you sure?', :method => :delete %>
     			    </p>
@@ -88,11 +88,13 @@
 </div>
 
 
-<% if listid = params[:list_id] %>
-    <% prevlist = List.find_by(:id => listid) %>
-    <% tabindex = prevlist && @lists.index(prevlist) %>
-<% end %> 
-
+<%# Tab selection is resolved in TasksController#index: the view used to run
+    its own List.find_by against the raw params[:list_id] value on every
+    render, which passed unvalidated input to the adapter. @selected_list is
+    nil unless the parameter was a plain positive integer matching a real list,
+    and Array#index yields an Integer, so only an integer reaches the script
+    block below. %>
+<% selected_tab = @selected_list ? @lists.index(@selected_list) : nil %>
 
 <script>
 	$('.box').click(function(event) {
@@ -101,8 +103,8 @@
 	
 	$(function() {
 	    var opts = {};
-	    <% if tabindex %>
-	        opts.selected = <%= tabindex %>;
+	    <% if selected_tab %>
+	        opts.selected = <%= selected_tab.to_i %>;
 	    <% end %>
 		$( "#tabs" ).tabs(opts);
 	});

@@ -5,9 +5,21 @@
   
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
-  <%# jQuery UI (tabs) is loaded from a pinned CDN version instead of a
-      vendored copy; see the asset pipeline note in the README. %>
-  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js"></script>
+  <%# jQuery UI (tabs) comes from the official jQuery CDN instead of a
+      vendored copy in the tree.
+
+      Pinned to 1.13.2, the final 1.x release. The previous pin (1.8.13, 2012)
+      is affected by four published XSS issues -- CVE-2015-9251, CVE-2016-7961,
+      CVE-2020-11022 and CVE-2020-11023 -- all fixed in 1.12.0/1.12.1. The
+      .tabs() API used below is unchanged between those versions.
+
+      Served from code.jquery.com (upstream project) rather than a Google-hosted
+      copy. crossorigin/referrerpolicy are set; a subresource-integrity hash can
+      be added with:
+        curl -sL <url> | openssl dgst -sha384 -binary | openssl base64 -A
+      which must be recomputed on every version bump. %>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"
+          crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <%= csrf_meta_tags %>
 </head>
 <body>

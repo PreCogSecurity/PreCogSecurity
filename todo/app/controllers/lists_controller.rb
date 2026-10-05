@@ -13,7 +13,7 @@ class ListsController < ApplicationController
   end
 
   def destroy
-    @list = List.find(params[:id])
+    @list = List.find(numeric_id!(:id))
     @list.destroy
 
     respond_to do |format|

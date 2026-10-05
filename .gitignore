@@ -22,4 +22,20 @@ tmp/
 
 # OS / editor cruft
 .DS_Store
+Thumbs.db
+desktop.ini
 .sass-cache
+
+# Web-scraper output. HTTrack-style tools write a Netscape cookie jar and an
+# incremental download cache next to the mirrored pages; both can contain live
+# third-party session cookies and site credentials. They were committed here
+# once (article/article/cookies.txt) -- do not let them come back.
+cookies.txt
+**/hts-cache/
+**/hts-log.txt
+**/*.whtt
+
+# Bundled binaries. The Knight.zip drop was a second copy of precog/'s assets
+# already in the tree; shipping archives makes it impossible to review or
+# patch what is actually deployed.
+*.zip

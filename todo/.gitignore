@@ -13,6 +13,11 @@ tmp
 # Bundler
 .bundle/
 vendor/bundle/
+# Never vendor .gem files. The tree previously carried a 16 MB vendor/cache
+# pinned to rails 4.2.0 while Gemfile.lock pinned 4.2.11.3; a stale cache can
+# win during resolution and silently reintroduce the unpatched versions, and it
+# bloats both the repository and the Docker build context.
+vendor/cache/
 
 # Test coverage
 coverage/

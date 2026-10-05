@@ -14,12 +14,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+import os
+
 import webapp2
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         self.response.write('Hello world!')
 
+# SECURITY: debug=True must never reach a deployed instance. webapp2's
+# debug mode answers unhandled exceptions with a full traceback that includes
+# local variable values and source snippets (CWE-209), which on a public
+# endpoint hands an attacker the source tree and any configuration that leaked
+# into a frame. Opt in explicitly, and only for local development.
 app = webapp2.WSGIApplication([
     ('/', MainHandler)
-], debug=True)
+], debug=os.environ.get('APP_ENV', '') == 'dev')

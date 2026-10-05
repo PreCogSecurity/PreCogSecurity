@@ -28,4 +28,18 @@ class ListsControllerTest < ActionController::TestCase
 
     assert_redirected_to root_path
   end
+
+  test "should reject a malformed list id with 400" do
+    assert_no_difference('List.count') do
+      delete :destroy, :id => "abc", :format => :json
+    end
+    assert_response :bad_request
+  end
+
+  test "should reject a list id that is not an integer with 400" do
+    assert_no_difference('List.count') do
+      delete :destroy, :id => "1 OR 1=1", :format => :json
+    end
+    assert_response :bad_request
+  end
 end

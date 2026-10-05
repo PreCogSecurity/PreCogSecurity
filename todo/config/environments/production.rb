@@ -1,6 +1,24 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
+  # SECURITY: fail closed.
+  #
+  # These two values cannot be defaulted safely. SECRET_KEY_BASE signs the
+  # session cookie, so a missing value means either an unbootable app or -- far
+  # worse -- a predictable key that lets anyone forge a session. DATABASE_URL
+  # carries the database credentials; there is no safe fallback for it either.
+  #
+  # The check is explicit rather than left to a downstream framework error so
+  # that the failure is loud, early and identical on every database adapter,
+  # instead of surfacing as a confusing 500 on the first real request. See
+  # todo/.env.example.
+  %w[SECRET_KEY_BASE DATABASE_URL].each do |required_var|
+    if ENV[required_var].to_s.strip.empty?
+      raise "Refusing to boot in production: #{required_var} is not set. " \
+            "Copy todo/.env.example and supply it via the environment."
+    end
+  end
+
   # Code is not reloaded between requests.
   config.cache_classes = true
 
